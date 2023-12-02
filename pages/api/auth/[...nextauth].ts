@@ -1,12 +1,9 @@
 import bcrypt from "bcrypt"
 import NextAuth, { AuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
-import { PrismaAdapter } from "@next-auth/prisma-adapter"
-
-import prisma from "@/libs/prismadb"
+import { getUserCheck } from "@/pages/spring/api/authApi"
 
 export const authOptions: AuthOptions = {
-  adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
       name: 'credentials',
@@ -19,26 +16,22 @@ export const authOptions: AuthOptions = {
           throw new Error('Invalid credentials');
         }
 
-        const user = await prisma.user.findUnique({
-          where: {
-            email: credentials.email
-          }
-        });
+        const checkReq = getUserCheck(credentials.email);
 
-        if (!user || !user?.hashedPassword) {
+        if ((await checkReq).data.isSuccess) {
           throw new Error('Invalid credentials');
         }
 
         const isCorrectPassword = await bcrypt.compare(
           credentials.password,
-          user.hashedPassword
+          (await checkReq).data.password
         );
 
         if (!isCorrectPassword) {
           throw new Error('Invalid credentials');
         }
 
-        return user;
+        return (await checkReq).data.id;
       }
     })
   ],
