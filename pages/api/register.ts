@@ -1,8 +1,7 @@
 import bcrypt from 'bcrypt';
 import { NextApiRequest, NextApiResponse } from "next";
 
-//유저 아이디 만들기
-
+import prisma from '@/libs/prismadb';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
@@ -14,7 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    const user = /*await prisma.user.create*/({
+    const user = await prisma.user.create({
       data: {
         email,
         username,

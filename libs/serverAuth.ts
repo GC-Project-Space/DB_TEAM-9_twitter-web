@@ -1,4 +1,4 @@
-/*import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 import prisma from '@/libs/prismadb';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
@@ -25,4 +25,3 @@ const serverAuth = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 export default serverAuth;
-*/

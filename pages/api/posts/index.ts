@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-//import serverAuth from "@/libs/serverAuth";
-//import prisma from "@/libs/prismadb";
+import serverAuth from "@/libs/serverAuth";
+import prisma from "@/libs/prismadb";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST' && req.method !== 'GET') {
@@ -11,13 +11,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     
     if (req.method === 'POST') {
-     //const { currentUser } = await serverAuth(req, res);
+      const { currentUser } = await serverAuth(req, res);
       const { body } = req.body;
 
-      const post = /*await prisma.post.create*/({
+      const post = await prisma.post.create({
         data: {
           body,
-          //userId: currentUser.id
+          userId: currentUser.id
         }
       });
 
@@ -32,7 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       let posts;
 
       if (userId && typeof userId === 'string') {
-        posts = /*await prisma.post.findMany*/({
+        posts = await prisma.post.findMany({
           where: {
             userId
           },
@@ -45,7 +45,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           },
         });
       } else {
-        posts = /*await prisma.post.findMany*/({
+        posts = await prisma.post.findMany({
           include: {
             user: true,
             comments: true

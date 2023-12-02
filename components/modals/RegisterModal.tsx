@@ -30,7 +30,7 @@ const RegisterModal = () => {
   }, [loginModal, registerModal, isLoading]);
 
   const onSubmit = useCallback(async () => {
-    /*try {
+    try {
       setIsLoading(true);
       
       await axios.post('/api/register', {
@@ -54,7 +54,7 @@ const RegisterModal = () => {
       toast.error('Something went wrong');
     } finally {
       setIsLoading(false);
-    }*/
+    }
   }, [email, password, registerModal, username, name]);
 
   const bodyContent = (

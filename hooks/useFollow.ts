@@ -1,4 +1,4 @@
-//import axios from "axios";
+import axios from "axios";
 import { useCallback, useMemo } from "react";
 import { toast } from "react-hot-toast";
 
@@ -27,12 +27,12 @@ const useFollow = (userId: string) => {
       let request;
 
       if (isFollowing) {
-        //request = () => axios.delete('/api/follow', { data: { userId } });
+        request = () => axios.delete('/api/follow', { data: { userId } });
       } else {
-        //request = () => axios.post('/api/follow', { userId });
+        request = () => axios.post('/api/follow', { userId });
       }
 
-      //await request();
+      await request();
       mutateCurrentUser();
       mutateFetchedUser();
 

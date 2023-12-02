@@ -1,4 +1,4 @@
-//import axios from "axios";
+import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 
@@ -35,7 +35,7 @@ const EditModal = () => {
     try {
       setIsLoading(true);
 
-      //await axios.patch('/api/edit', { name, username, bio, profileImage, coverImage });
+      await axios.patch('/api/edit', { name, username, bio, profileImage, coverImage });
       mutateFetchedUser();
 
       toast.success('Updated');

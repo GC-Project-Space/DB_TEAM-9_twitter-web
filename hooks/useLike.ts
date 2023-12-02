@@ -1,4 +1,4 @@
-//import axios from "axios";
+import axios from "axios";
 import { useCallback, useMemo } from "react";
 import { toast } from "react-hot-toast";
 
@@ -29,12 +29,12 @@ const useLike = ({ postId, userId }: { postId: string, userId?: string }) => {
       let request;
 
       if (hasLiked) {
-        //request = () => axios.delete('/api/like', { data: { postId } });
+        request = () => axios.delete('/api/like', { data: { postId } });
       } else {
-       // request = () => axios.post('/api/like', { postId });
+        request = () => axios.post('/api/like', { postId });
       }
 
-      //await request();
+      await request();
       mutateFetchedPost();
       mutateFetchedPosts();
 

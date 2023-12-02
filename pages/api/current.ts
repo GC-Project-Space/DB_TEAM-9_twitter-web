@@ -1,4 +1,4 @@
-/*import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 import serverAuth from '@/libs/serverAuth';
 
@@ -15,4 +15,4 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log(error);
     return res.status(400).end();
   }
-}*/
+}

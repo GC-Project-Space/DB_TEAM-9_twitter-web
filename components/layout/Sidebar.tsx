@@ -18,18 +18,18 @@ const Sidebar = () => {
       label: 'Home',
       href: '/',
     },
-    /*{
+    {
       icon: BsBellFill,
       label: 'Notifications',
       href: '/notifications',
       auth: true,
       alert: currentUser?.hasNotification
-    },*/
+    },
     {
       icon: FaUser,
       label: 'Profile',
       href: `/users/${currentUser?.id}`,
-      //auth: true,
+      auth: true,
     },
   ]
 
@@ -41,14 +41,14 @@ const Sidebar = () => {
             {items.map((item) => (
               <SidebarItem
                 key={item.href}
-                //alert={item.alert}
-                //auth={item.auth}
+                alert={item.alert}
+                auth={item.auth}
                 href={item.href} 
                 icon={item.icon} 
                 label={item.label}
               />
             ))}
-            {currentUser || <SidebarItem onClick={() => signOut()} icon={BiLogOut} label="Logout" />}
+            {currentUser && <SidebarItem onClick={() => signOut()} icon={BiLogOut} label="Logout" />}
             <SidebarTweetButton />
           </div>
         </div>
