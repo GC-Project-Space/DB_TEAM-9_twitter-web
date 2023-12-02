@@ -83,7 +83,7 @@ const PostItem: React.FC<PostItemProps> = ({ data = {}, userId }) => {
                 hidden
                 md:block
             ">
-              @{data.user.username}
+              @{data.user.nickname}
             </span>
             <span className="text-neutral-500 text-sm">
               {createdAt}

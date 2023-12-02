@@ -1,4 +1,3 @@
-import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useCallback, useState } from "react";
 import { signIn } from 'next-auth/react';
@@ -8,6 +7,7 @@ import useRegisterModal from "@/hooks/useRegisterModal";
 
 import Input from "../Input";
 import Modal from "../Modal";
+import { postSignUp } from "@/pages/spring/api/usersApi";
 
 const RegisterModal = () => {
   const loginModal = useLoginModal();
@@ -15,7 +15,7 @@ const RegisterModal = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
+  const [nickname, setNickname] = useState('');
   const [name, setName] = useState('');
 
   const [isLoading, setIsLoading] = useState(false);
@@ -33,11 +33,11 @@ const RegisterModal = () => {
     try {
       setIsLoading(true);
       
-      await axios.post('/api/register', {
+      await postSignUp({
         email,
         password,
-        username,
         name,
+        nickname,
       });
 
       setIsLoading(false)
@@ -55,7 +55,7 @@ const RegisterModal = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [email, password, registerModal, username, name]);
+  }, [email, password, registerModal, nickname, name]);
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -73,9 +73,9 @@ const RegisterModal = () => {
       />
       <Input 
         disabled={isLoading}
-        placeholder="Username" 
-        value={username} 
-        onChange={(e) => setUsername(e.target.value)}
+        placeholder="Nickname" 
+        value={nickname} 
+        onChange={(e) => setNickname(e.target.value)}
       />
       <Input 
         disabled={isLoading}
